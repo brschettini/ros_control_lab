@@ -1,0 +1,26 @@
+<package format="2">
+  <name>action_controllers</name>
+  <version>0.0.1</version>
+
+  <description>
+    An action controller example
+  </description>
+
+  <maintainer email="brschettini@gmail.com">Bruno Schettini</maintainer>
+
+  <license>MIT</license>
+
+  <author>Bruno Schettini</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <depend>controller_interface</depend>
+  <depend>hardware_interface</depend>
+  
+
+
+  <export>
+    <!-- <controller_interface plugin="${prefix}/action_controllers.xml"/> -->
+  </export>
+</package>

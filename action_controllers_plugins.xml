@@ -1,0 +1,10 @@
+<library path="lib/libaction_controllers">
+
+  <class name="action_controller/PositionActionController" type="position_controllers::JointPositionController" base_class_type="controller_interface::ControllerBase">
+    <description>
+      Short description of the controller.
+    </description>
+  </class>
+
+
+</library>
