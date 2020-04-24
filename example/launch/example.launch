@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <arg name="paused" default="false"/>
+  
+  <!-- Initialize gazebo -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="$(arg paused)"/>
+  </include>
+
+  
+  <param name="/robot_description"
+         command="$(find xacro)/xacro '$(find action_controllers)/example/robots/simple_robot.xacro' --inorder" />
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+        args="-urdf -model simple_robot -param /robot_description "/>
+
+
+</launch>
