@@ -7,13 +7,29 @@
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="paused" value="$(arg paused)"/>
   </include>
+  <!--                   -->
 
-  
+
+
+  <!-- Spawn robot -->
   <param name="/robot_description"
          command="$(find xacro)/xacro '$(find action_controllers)/example/robots/simple_robot.xacro' --inorder" />
 
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
         args="-urdf -model simple_robot -param /robot_description "/>
+  <!--             -->
 
+  <!-- Load controllers -->
+  <rosparam file="$(find action_controllers)/example/config/robot_controllers.yaml" command="load"/>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/simple_robot" 
+    args="joint_position_controller joint_state_controller"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/simple_robot/joint_states" />
+  </node>
 
 </launch>

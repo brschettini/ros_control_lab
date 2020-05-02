@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
 # Declare catkin project
 catkin_package(
     CATKIN_DEPENDS controller_interface hardware_interface
-    INCLUDE_DIRS include
+    # INCLUDE_DIRS include
     LIBRARIES ${PROJECT_NAME}
 )
 
