@@ -6,7 +6,14 @@ simple_robot:
 
   # Position Controllers ---------------------------------------
   joint_position_controller:
-    type: position_controllers/JointPositionController
+    # type: position_controllers/JointPositionController
+    type: velocity_controllers/JointPositionController
+    # type: effort_controllers/JointPositionController
     joint: joint
-    pid: {p: 1.0, i: 0.0, d: 0}
+    pid: {p: 1.0, i: 0.1, d: 0}
 
+  joint_velocity_controller:
+    # type: effort_controllers/JointVelocityController
+    type: velocity_controllers/JointVelocityController
+    joint: joint
+    pid: {p: 1.0, i: 0.1, d: 0}

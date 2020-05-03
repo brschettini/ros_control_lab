@@ -87,10 +87,14 @@
   <transmission name="simple_transmission">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <!-- <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> -->
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <!-- <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface> -->
     </joint>
     <actuator name="motor">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <!-- <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> -->
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <!-- <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface> -->
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
@@ -111,6 +115,8 @@
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/simple_robot</robotNamespace>
+      <controlPeriod>0.01</controlPeriod>
+      <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
 
