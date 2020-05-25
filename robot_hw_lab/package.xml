@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>robot_hw_lab</name>
+  <version>0.1.0</version>
+  <description>A package for robot hardware implementation</description>
+
+  <author email="brschettini@gmail.com">Bruno Schettini</author>
+  <maintainer email="brschettini@gmail.com">Bruno Schettini</maintainer>
+
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
