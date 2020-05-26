@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>ros_control_lab</name>
+  <version>0.1.0</version>
+  <description>A catkin metapackage for testing ros_control features</description>
+
+  <author email="brschettini@gmail.com">Bruno Schettini</author>
+  <maintainer email="brschettini@gmail.com">Bruno Schettini</maintainer>
+
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+
+</package>
