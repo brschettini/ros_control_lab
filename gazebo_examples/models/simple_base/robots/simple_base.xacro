@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<robot name="simple_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="radius" value="0.04267" />
+  <xacro:property name="top_length" value="0.07357" />
+  <xacro:property name="base_length" value="0.05867" />
+  <xacro:property name="pointer_size" value="0.01" />
+
+
+  <link name="base">
+    <inertial>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 ${base_length/2}"/>
+      <mass value="1.2"/>
+      <inertia ixx="0.001087473" ixy="0.0" ixz="0.0" iyy="0.001087473" iyz="0.0" izz="0.001092437"/>
+    </inertial>
+    <visual name="base_visual">
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 ${base_length/2}"/>
+      <geometry>
+        <cylinder length="${base_length}" radius="${radius}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 ${base_length/2}"/>
+      <geometry>
+        <cylinder length="${base_length}" radius="${radius}"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <link name="top">
+    <inertial>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 ${top_length/2}"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.000090623" ixy="0.0" ixz="0.0" iyy="0.000090623" iyz="0.0" izz="0.000091036"/>
+    </inertial>
+    <visual name="top_visual">
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 ${top_length/2}"/>
+      <geometry>
+        <cylinder length="${top_length}" radius="${radius}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 ${top_length/2}"/>
+      <geometry>
+        <cylinder length="${top_length}" radius="${radius}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="pointer">
+    <inertial>
+      <origin xyz="0.0 0.0 ${pointer_size/2}" rpy="0.0 0.0 0.0"/>
+      <mass value="0.001"/>
+      <inertia ixx="0.000000017" ixy="0.0" ixz="0.0" iyy="0.000000017" iyz="0.0" izz="0.000000017"/>
+    </inertial>
+    <visual name="pointer_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="${pointer_size} ${pointer_size} ${pointer_size}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 ${pointer_size/2}" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="${pointer_size} ${pointer_size} ${pointer_size}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint" type="revolute">
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 ${base_length}"/>
+    <parent link="base"/>
+    <child link="top"/>
+    <axis xyz="0.0 0.0 1.0"/>
+    <limit effort="100.0" lower="-100000.0" upper="100000.0" velocity="10.0"/>
+  </joint>
+
+  <joint name="joint_pointer" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="${radius-pointer_size/2} 0.0 ${top_length+pointer_size/2}"/>
+    <parent link="top"/>
+    <child link="pointer"/>
+    <axis xyz="0.0 0.0 0.0"/>
+  </joint>
+
+
+  <transmission name="simple_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <gazebo reference="top">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="base">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="pointer">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/simple_base</robotNamespace>
+    </plugin>
+  </gazebo>
+
+
+</robot>
